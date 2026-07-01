@@ -8,7 +8,7 @@ import ContactSection from "./components/ContactSection";
 
 export default function App() {
   return (
-    <main className="relative selection:bg-accent-signal selection:text-white bg-[#F1F0F5] min-h-screen overflow-x-hidden">
+    <main className="relative selection:bg-accent-signal selection:text-white bg-bg-base min-h-screen overflow-x-hidden">
       {/* Signature 3D Element */}
       <SecondBrain />
       <GrainOverlay />

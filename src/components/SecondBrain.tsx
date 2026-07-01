@@ -55,6 +55,7 @@ export default function SecondBrain() {
           antialias: true,
           alpha: true
         });
+        renderer.setClearColor(0x000000, 0); // Strict transparency
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -66,7 +67,21 @@ export default function SecondBrain() {
           0.25  // threshold
         );
         
-        composer = new EffectComposer(renderer);
+        // Ensure transparency is preserved in the effect composer
+        const renderTarget = new THREE.WebGLRenderTarget(width, height, {
+          format: THREE.RGBAFormat,
+          type: THREE.UnsignedByteType
+        });
+        
+        // Force UnrealBloomPass to use a transparent material when copying the scene
+        if ((bloomPass as any)._basic) {
+          (bloomPass as any)._basic.transparent = true;
+        }
+        if ((bloomPass as any).basic) {
+          (bloomPass as any).basic.transparent = true;
+        }
+
+        composer = new EffectComposer(renderer, renderTarget);
         composer.addPass(renderScene);
         composer.addPass(bloomPass);
 
@@ -305,7 +320,7 @@ export default function SecondBrain() {
         className="hidden absolute top-1/2 right-[20%] -translate-y-1/2 w-96 h-96 rounded-full blur-[120px] bg-accent-signal opacity-20"
       />
       {/* Visual Masking: Prevents harsh edges near text */}
-      <div className="absolute inset-y-0 left-0 w-full lg:w-[60%] bg-gradient-to-b lg:bg-gradient-to-r from-[#F1F0F5] via-[#F1F0F5]/80 to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-full lg:w-[60%] bg-gradient-to-b lg:bg-gradient-to-r from-[#F2F1F7] via-[#F2F1F7]/90 to-[#F2F1F7]/0 pointer-events-none" />
     </div>
   );
 }
