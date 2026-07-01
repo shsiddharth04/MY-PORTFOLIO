@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-bg-base: #F8F7FA;
+  --color-ink-primary: #16151C;
+  --color-ink-secondary: #6B6975;
+  --color-accent-signal: #6C4DFF;
+  --color-accent-glow: #9C7BFF;
+  --color-surface: #FFFFFF;
+  --color-border-subtle: #E2E0EA;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-base text-ink-primary font-sans antialiased selection:bg-accent-signal/20;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply relative min-h-screen py-24 md:py-32 px-6 md:px-12 lg:px-24 flex flex-col justify-center;
+  }
+  
+  .content-column {
+    @apply w-full lg:w-[55%] z-10 lg:pr-12;
+  }
+
+  .label-eyebrow {
+    @apply text-accent-signal font-medium text-sm tracking-wider uppercase mb-4 block;
+  }
+
+  .card-surface {
+    @apply bg-surface border border-border-subtle rounded-xl p-8 shadow-sm transition-all duration-300;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E2E0EA;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D1CFDB;
+}
