@@ -19,37 +19,36 @@ export default function SecondBrain() {
     let animationFrameId: number;
 
     const sectionConfigs = [
-      { id: 'section-resting', color: 0x6C4DFF, zoom: 1, pos: { x: 4, y: 0, z: 12 }, speed: 0.001 },
-      { id: 'section-omnibiz', color: 0x1B2A63, zoom: 2.2, pos: { x: 5, y: 4, z: 6 }, speed: 0.004 },
-      { id: 'section-bluelotus', color: 0x2247D6, zoom: 2.5, pos: { x: 6, y: 0, z: 5 }, speed: 0.003 },
-      { id: 'section-fundingpips', color: 0x2E8B57, zoom: 2.8, pos: { x: 3, y: -4, z: 4 }, speed: 0.006 },
-      { id: 'section-postg8', color: 0x2F2BB0, zoom: 3.5, pos: { x: 6, y: -6, z: 3 }, speed: 0.012 },
-      { id: 'section-gigculture', color: 0xA79ED1, zoom: 1.8, pos: { x: 4, y: 0, z: 10 }, speed: 0.002 },
+      { id: 'section-resting', color: 0x6C4DFF, pos: { x: 4, y: 0, z: 12 }, mobilePos: { x: 0, y: 0, z: 20 }, speed: 0.001 },
+      { id: 'section-omnibiz', color: 0x1B2A63, pos: { x: 5, y: 4, z: 6 }, mobilePos: { x: 2, y: 4, z: 12 }, speed: 0.004 },
+      { id: 'section-bluelotus', color: 0x2247D6, pos: { x: 6, y: 0, z: 5 }, mobilePos: { x: 3, y: 0, z: 10 }, speed: 0.003 },
+      { id: 'section-fundingpips', color: 0x2E8B57, pos: { x: 3, y: -4, z: 4 }, mobilePos: { x: 1, y: -4, z: 12 }, speed: 0.006 },
+      { id: 'section-postg8', color: 0x2F2BB0, pos: { x: 6, y: -6, z: 3 }, mobilePos: { x: 3, y: -6, z: 10 }, speed: 0.012 },
+      { id: 'section-gigculture', color: 0xA79ED1, pos: { x: 4, y: 0, z: 10 }, mobilePos: { x: 0, y: 0, z: 18 }, speed: 0.002 },
     ];
 
     function init() {
       try {
         const width = window.innerWidth;
         const height = window.innerHeight;
+        const isMobile = width < 768;
 
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
         
         // Offset logic to prevent overlap with text
-        // On desktop, push right. On mobile, push slightly right or stay centered but with vertical offset.
         let offsetX = 0;
         let offsetY = 0;
         
         if (width > 1024) {
           offsetX = width * 0.25;
         } else {
-          // On mobile, we push it slightly right or down depending on the layout
-          offsetX = width * 0.1;
-          offsetY = height * 0.1;
+          offsetX = width * 0.05;
+          offsetY = isMobile ? height * 0.05 : 0;
         }
         
         camera.setViewOffset(width, height, -offsetX, -offsetY, width, height);
-        camera.position.z = 12;
+        camera.position.z = isMobile ? 20 : 12;
 
         renderer = new THREE.WebGLRenderer({
           canvas: canvasRef.current!,
@@ -71,11 +70,11 @@ export default function SecondBrain() {
         composer.addPass(renderScene);
         composer.addPass(bloomPass);
 
-        if (width < 700) bloomPass.enabled = false;
+        if (isMobile) bloomPass.enabled = false;
 
         // Neural Network Generation: Constellation Approach
-        const hubCount = 15;
-        const nodesPerHub = 40;
+        const hubCount = isMobile ? 10 : 15;
+        const nodesPerHub = isMobile ? 25 : 40;
         const totalNodes = hubCount * nodesPerHub;
         const nodes: any[] = [];
         const connections: any[] = [];
@@ -144,7 +143,7 @@ export default function SecondBrain() {
         const lineMaterial = new THREE.LineBasicMaterial({ 
           color: 0x6B6975, 
           transparent: true, 
-          opacity: 0.05,
+          opacity: 0.1,
           blending: THREE.AdditiveBlending
         });
         lines = new THREE.LineSegments(lineGeometry, lineMaterial);
@@ -155,7 +154,7 @@ export default function SecondBrain() {
         scene.add(packets);
 
         const packetGeo = new THREE.SphereGeometry(0.04, 8, 8);
-        for(let i=0; i<30; i++) {
+        for(let i=0; i < (isMobile ? 15 : 30); i++) {
           const pMat = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.8 });
           const p = new THREE.Mesh(packetGeo, pMat);
           packets.add(p);
@@ -179,6 +178,7 @@ export default function SecondBrain() {
 
         // Scroll Logic
         let currentSpeed = 0.001;
+        const activeColor = new THREE.Color(0x6B6975);
 
         sectionConfigs.forEach((config, idx) => {
           ScrollTrigger.create({
@@ -186,25 +186,35 @@ export default function SecondBrain() {
             start: "top center",
             end: "bottom center",
             onEnter: () => {
+              const targetPos = isMobile ? config.mobilePos : config.pos;
               gsap.to(camera.position, { 
-                x: config.pos.x, 
-                y: config.pos.y, 
-                z: config.pos.z, 
+                x: targetPos.x, 
+                y: targetPos.y, 
+                z: targetPos.z, 
                 duration: 2.5, 
                 ease: "expo.out" 
               });
               currentSpeed = config.speed;
+
+              // Animate Global Web Color
+              const targetColor = new THREE.Color(config.color);
+              gsap.to(activeColor, {
+                r: targetColor.r, g: targetColor.g, b: targetColor.b,
+                duration: 1.5,
+                onUpdate: () => {
+                  lineMaterial.color.copy(activeColor);
+                  material.emissive.copy(activeColor).multiplyScalar(0.5);
+                }
+              });
               
               // Intensified Firing burst on enter
-              for(let i=0; i<25; i++) {
+              for(let i=0; i < (isMobile ? 10 : 25); i++) {
                 gsap.delayedCall(Math.random() * 0.8, () => {
                   const clusterNodes = nodes.filter(n => n.cluster === idx || n.isHub);
                   if (clusterNodes.length > 0) {
                     const node = clusterNodes[Math.floor(Math.random() * clusterNodes.length)];
                     const flashColor = new THREE.Color(0xFFFFFF);
                     
-                    // Hubs flash even brighter
-                    const intensity = node.isHub ? 4 : 2;
                     nodesMesh.getMatrixAt(node.id, dummy.matrix);
                     dummy.scale.setScalar(node.isHub ? 2.5 : 0.8);
                     nodesMesh.setMatrixAt(node.id, dummy.matrix);
@@ -214,7 +224,7 @@ export default function SecondBrain() {
                     nodesMesh.instanceMatrix.needsUpdate = true;
                     
                     gsap.delayedCall(0.1 + Math.random() * 0.2, () => {
-                      const base = node.isHub ? new THREE.Color(config.color).multiplyScalar(1.5) : new THREE.Color(config.color);
+                      const base = node.isHub ? targetColor.clone().multiplyScalar(1.5) : targetColor;
                       base.toArray(nodeColors, node.id * 3);
                       
                       nodesMesh.getMatrixAt(node.id, dummy.matrix);
@@ -251,6 +261,7 @@ export default function SecondBrain() {
         const handleResize = () => {
           const w = window.innerWidth;
           const h = window.innerHeight;
+          const isMobile = w < 768;
           camera.aspect = w / h;
           
           let offsetX = 0;
@@ -258,8 +269,8 @@ export default function SecondBrain() {
           if (w > 1024) {
             offsetX = w * 0.25;
           } else {
-            offsetX = w * 0.1;
-            offsetY = h * 0.1;
+            offsetX = w * 0.05;
+            offsetY = isMobile ? h * 0.05 : 0;
           }
           
           camera.setViewOffset(w, h, -offsetX, -offsetY, w, h);
