@@ -19,7 +19,7 @@ export default function ContactSection() {
           <div className="flex flex-col gap-12">
             <a 
               href="mailto:sh.siddharthsharma04@gmail.com" 
-              className="group flex flex-col md:flex-row md:items-center gap-4 text-2xl sm:text-3xl md:text-5xl hover:text-accent-signal transition-colors font-display break-all sm:break-normal"
+              className="group flex flex-col md:flex-row md:items-center gap-4 text-xl sm:text-3xl md:text-5xl hover:text-accent-signal transition-colors font-display break-all sm:break-normal"
             >
               <span className="opacity-40 group-hover:opacity-100 transition-opacity">Email</span>
               <span className="hidden md:inline opacity-20">—</span>

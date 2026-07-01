@@ -91,12 +91,14 @@ export default function SecondBrain() {
         const nodeColors = new Float32Array(totalNodes * 3);
         const defaultColor = new THREE.Color(0x6B6975);
 
+        const spawnRange = isMobile ? 8 : 12;
+
         for (let h = 0; h < hubCount; h++) {
-          // Hub Position
+          // Hub Position - More compact on mobile
           const hubPos = new THREE.Vector3(
-            (Math.random() - 0.5) * 12,
-            (Math.random() - 0.5) * 12,
-            (Math.random() - 0.5) * 8
+            (Math.random() - 0.5) * spawnRange,
+            (Math.random() - 0.5) * spawnRange,
+            (Math.random() - 0.5) * (isMobile ? 6 : 8)
           );
 
           for (let n = 0; n < nodesPerHub; n++) {
@@ -303,7 +305,7 @@ export default function SecondBrain() {
         className="hidden absolute top-1/2 right-[20%] -translate-y-1/2 w-96 h-96 rounded-full blur-[120px] bg-accent-signal opacity-20"
       />
       {/* Visual Masking: Prevents harsh edges near text */}
-      <div className="absolute inset-y-0 left-0 w-full lg:w-[60%] bg-gradient-to-b lg:bg-gradient-to-r from-[#F8F7FA] via-[#F8F7FA]/80 to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-full lg:w-[60%] bg-gradient-to-b lg:bg-gradient-to-r from-[#F1F0F5] via-[#F1F0F5]/80 to-transparent pointer-events-none" />
     </div>
   );
 }
