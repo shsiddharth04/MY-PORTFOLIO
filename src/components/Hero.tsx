@@ -2,25 +2,27 @@ import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import Magnetic from "./Magnetic";
 
+const milestones = ["Discover", "Define", "Build", "Ship", "Measure"];
+
 export default function Hero() {
-  const lineRef = useRef<SVGPathElement>(null);
+  const lineRef = useRef<SVGLineElement>(null);
 
   useEffect(() => {
-    const path = lineRef.current;
-    if (!path) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = `${len}`;
-    path.style.strokeDashoffset = `${len}`;
+    const line = lineRef.current;
+    if (!line) return;
+    const len = line.getTotalLength ? line.getTotalLength() : 400;
+    line.style.strokeDasharray = `${len}`;
+    line.style.strokeDashoffset = `${len}`;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          path.style.animation = `drawLine 2.2s ease-out 1s forwards`;
+          line.style.animation = `drawLine 1.8s ease-out 0.8s forwards`;
         }
       },
       { threshold: 0.3 }
     );
-    observer.observe(path);
+    observer.observe(line);
     return () => observer.disconnect();
   }, []);
 
@@ -43,7 +45,7 @@ export default function Hero() {
           <span className="w-4 h-px bg-white/15" />
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-amber animate-pulse" />
-            <span className="mono-label text-amber">Available</span>
+            <span className="mono-label text-amber">Open to opportunities</span>
           </span>
         </motion.div>
 
@@ -54,13 +56,11 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="text-[2.4rem] sm:text-[3.2rem] md:text-[4rem] lg:text-[4.8rem] leading-[1.05] tracking-[-0.03em] text-text mb-8 max-w-3xl"
         >
-          I started by reading
+          I find the problem
           <br />
-          price action. Now I
+          worth solving.
           <br />
-          build the platforms
-          <br />
-          <span className="text-text/30">that create it.</span>
+          <span className="text-text/30">Then I ship it.</span>
         </motion.h1>
 
         {/* Descriptor */}
@@ -70,31 +70,52 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.45 }}
           className="font-mono text-sm text-muted mb-10 tracking-wide"
         >
-          Founder&nbsp;&nbsp;·&nbsp;&nbsp;Growth operator&nbsp;&nbsp;·&nbsp;&nbsp;Solo builder
+          Product thinking&nbsp;&nbsp;·&nbsp;&nbsp;Technical depth&nbsp;&nbsp;·&nbsp;&nbsp;Shipped products
         </motion.p>
 
-        {/* Amber price-action line */}
+        {/* Product lifecycle visual */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mb-12"
         >
-          <svg
-            viewBox="0 0 560 60"
-            className="w-full max-w-lg h-12 overflow-visible"
-            fill="none"
-          >
-            <path
+          <svg viewBox="0 0 480 48" className="w-full max-w-lg h-12 overflow-visible" fill="none">
+            {/* Base line */}
+            <line x1="20" y1="18" x2="460" y2="18" stroke="rgba(245,244,240,0.06)" strokeWidth="1" />
+            {/* Animated amber line */}
+            <line
               ref={lineRef}
-              d="M 0,48 L 40,48 L 55,12 L 75,42 L 95,30 L 120,30 L 145,8 L 168,38 L 195,22 L 225,22 L 252,42 L 278,14 L 308,32 L 340,18 L 372,18 L 400,36 L 428,10 L 458,30 L 490,20 L 520,20 L 560,6"
+              x1="20" y1="18" x2="460" y2="18"
               stroke="#F0B429"
               strokeWidth="1.5"
               strokeLinecap="round"
-              strokeLinejoin="round"
             />
-            {/* Terminal dot */}
-            <circle cx="560" cy="6" r="3" fill="#F0B429" opacity="0.7" />
+            {/* Milestone nodes + labels */}
+            {milestones.map((label, i) => {
+              const x = 20 + i * 110;
+              return (
+                <motion.g
+                  key={label}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.2 + i * 0.15, duration: 0.4 }}
+                >
+                  <circle cx={x} cy={18} r={i === 2 ? 5 : 3.5} fill={i === 2 ? "#F0B429" : "#09090B"} stroke="#F0B429" strokeWidth="1.5" />
+                  <text
+                    x={x}
+                    y={38}
+                    textAnchor="middle"
+                    fill="rgba(245,244,240,0.3)"
+                    fontSize="8"
+                    fontFamily="JetBrains Mono, monospace"
+                    letterSpacing="0.08em"
+                  >
+                    {label.toUpperCase()}
+                  </text>
+                </motion.g>
+              );
+            })}
           </svg>
         </motion.div>
 

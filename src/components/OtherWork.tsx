@@ -4,43 +4,43 @@ import { motion, useInView } from "motion/react";
 const work = [
   {
     company: "Omnibiz Africa",
-    role: "Growth Marketing Intern",
+    role: "Growth PM / Marketing Intern",
     period: "Mar – Jun 2026",
     type: "Remote",
-    metric: "₹30L campaign revenue in one week",
+    metric: "Designed trigger-based lifecycle journeys for 170K retailers. ₹30L revenue in one week.",
     metricColor: "text-amber",
   },
   {
     company: "Funding Pips",
-    role: "Funded Forex Trader",
+    role: "Funded trader",
     period: "Jan 2024 – Jan 2025",
     type: "Bengaluru",
-    metric: "$5K account · 60% profit share · 2 payouts",
-    metricColor: "text-emerald-400/70",
+    metric: "High-stakes decision-making under strict risk parameters. Passed 2-stage evaluation.",
+    metricColor: "text-text/50",
   },
   {
     company: "Nurture Nest",
-    role: "Co-founder, D2C Operations",
+    role: "Co-founder, operations",
     period: "Jul – Sep 2025",
     type: "Gurugram",
-    metric: "₹25K gross revenue in 2 months",
-    metricColor: "text-amber",
+    metric: "End-to-end ops: sourcing → marketing → fulfillment. ₹25K gross in 2 months.",
+    metricColor: "text-text/50",
   },
   {
     company: "Carpooling Research",
-    role: "Independent market study",
+    role: "Independent researcher",
     period: "2022 – 2023",
     type: "India",
-    metric: "Adoption & feasibility across major cities",
-    metricColor: "text-muted",
+    metric: "User research on adoption barriers and feasibility across major Indian cities.",
+    metricColor: "text-text/50",
   },
   {
     company: "Fitness Delusion",
-    role: "Writer & SEO strategist",
+    role: "Writer & content strategist",
     period: "2020",
     type: "Online",
-    metric: "Evidence-based wellness · Organic SEO growth",
-    metricColor: "text-muted",
+    metric: "Evidence-based health writing. Grew organic traffic via structured SEO strategy.",
+    metricColor: "text-text/50",
   },
 ];
 
@@ -57,7 +57,7 @@ export default function OtherWork() {
           transition={{ duration: 0.6 }}
           className="mono-label mb-6 block"
         >
-          04 — Other work
+          04 — Other experience
         </motion.span>
 
         <motion.h2
@@ -66,9 +66,9 @@ export default function OtherWork() {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="text-3xl md:text-5xl mb-12 leading-[1.1]"
         >
-          Before the
+          More context
           <br />
-          <span className="text-text/30">flagships.</span>
+          <span className="text-text/30">on how I think.</span>
         </motion.h2>
 
         {/* Table header */}
@@ -76,11 +76,11 @@ export default function OtherWork() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="hidden md:grid grid-cols-[1fr_1fr_1.4fr] gap-6 pb-3 border-b border-white/8 mb-2"
+          className="hidden md:grid grid-cols-[1fr_1fr_1.6fr] gap-6 pb-3 border-b border-white/8 mb-2"
         >
           <span className="mono-label">Company / Project</span>
           <span className="mono-label">Role · Period</span>
-          <span className="mono-label">Highlight</span>
+          <span className="mono-label">What it shows</span>
         </motion.div>
 
         {work.map((item, i) => (
@@ -89,7 +89,7 @@ export default function OtherWork() {
             initial={{ opacity: 0, y: 8 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.25 + i * 0.07 }}
-            className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.4fr] gap-1 md:gap-6 py-5 border-b border-white/5 group hover:border-white/10 transition-colors duration-300"
+            className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.6fr] gap-1 md:gap-6 py-5 border-b border-white/5 group hover:border-white/10 transition-colors duration-300"
           >
             <div>
               <p className="text-text text-sm font-medium group-hover:text-amber transition-colors duration-300">

@@ -47,9 +47,9 @@ export default function AboutSection() {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="text-3xl md:text-5xl mb-12 leading-[1.1]"
         >
-          Trader. Operator.
+          Product thinker
           <br />
-          <span className="text-text/30">Builder.</span>
+          <span className="text-text/30">who ships.</span>
         </motion.h2>
 
         <motion.div
@@ -59,25 +59,27 @@ export default function AboutSection() {
           className="space-y-5 text-base md:text-lg text-muted leading-relaxed max-w-2xl"
         >
           <p>
-            Started in Bengaluru with a commerce degree and a funded forex account — learning to read
-            markets before I ever touched a product. Passed a two-stage evaluation and managed a $5K
-            account under a 60% profit-share model. Learned when to move, when to hold, and how much
-            to risk.
+            Before writing a line of code for Blue Lotus, I spent weeks with manufacturing
+            CXOs — understanding exactly why surplus raw material inventory was a problem worth
+            solving, and why existing solutions missed the mark. That instinct — understand the
+            problem before committing to the solution — has shaped everything I've built since.
           </p>
           <p>
-            Moved into growth at scale. At Omnibiz Africa, I ran retention and reactivation campaigns
-            for 170,000 B2B retailers across Africa — trigger-based in-app flows, multi-channel
-            lifecycle journeys, and a single week that generated{" "}
-            <span className="text-text font-medium">₹30L in tracked campaign revenue.</span>
+            PostG8 started the same way: a real pain I'd seen professionals struggle with, turned
+            into a product I designed and shipped solo — four product areas, three pricing tiers,
+            full technical execution, monetized. Not a side project. A working product.
           </p>
           <p>
-            Now I build. PostG8 is an AI-powered LinkedIn growth platform built solo, end to end.
-            Blue Lotus is a B2B marketplace for surplus manufacturing inventory, co-founded and seeded
-            at ₹10L pre-revenue. Earlier, I built the Academy and Marketplace for Gig Culture India —
-            a chapter I'm proud of, now running without me.
+            At Omnibiz Africa, I designed retention and reactivation systems for 170,000 B2B
+            retailer customers across Africa. Trigger-based in-app journeys, multi-channel lifecycle
+            campaigns, conditional logic across branches — campaign design treated as{" "}
+            <span className="text-text font-medium">product design.</span> The output: ₹30L in
+            tracked revenue in a single week.
           </p>
           <p>
-            Currently at Masters' Union in Gurugram, studying Technology and Business Management.
+            I understand how engineering works. I can write specs that engineers don't rewrite.
+            I can make tradeoff calls without escalating every decision. Currently deepening the
+            business and strategy side at Masters' Union, Gurugram.
           </p>
         </motion.div>
 

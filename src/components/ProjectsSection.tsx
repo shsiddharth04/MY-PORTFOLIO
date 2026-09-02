@@ -3,11 +3,10 @@ import { motion, useInView } from "motion/react";
 
 /* ─── PostG8 Terminal Visual ─── */
 const terminalLines = [
-  { delay: 0, text: "> Analyzing LinkedIn profile...", color: "text-muted" },
-  { delay: 0.8, text: "> ICP identified: B2B SaaS founders", color: "text-amber/70" },
-  { delay: 1.6, text: "> Generating content strategy...", color: "text-muted" },
-  { delay: 2.4, text: "> Draft ready: 3 hook variations", color: "text-emerald-400/70" },
-  { delay: 3.2, text: "> Scheduled: Tomorrow, 9:00 AM IST ✓", color: "text-emerald-400/80" },
+  { delay: 0,   text: "> Problem: professionals can't turn expertise into consistent content", color: "text-muted" },
+  { delay: 1.0, text: "> Solution: AI engine + publishing + outreach in one product", color: "text-amber/70" },
+  { delay: 2.0, text: "> Shipped: Free · Pro ₹999/mo · Growth tier", color: "text-emerald-400/70" },
+  { delay: 3.0, text: "> Outcome: paying users. Solo-built. ✓", color: "text-emerald-400/80" },
 ];
 
 function TerminalLine({ text, color, delay }: { text: string; color: string; delay: number }) {
@@ -25,17 +24,17 @@ function TerminalLine({ text, color, delay }: { text: string; color: string; del
         setTyped(text.slice(0, i + 1));
         i++;
         if (i >= text.length) clearInterval(interval);
-      }, 22);
+      }, 18);
       return () => clearInterval(interval);
     }, delay * 1000);
     return () => clearTimeout(t);
   }, [inView, text, delay]);
 
   return (
-    <div ref={ref} className={`font-mono text-xs leading-6 ${color} ${visible ? "opacity-100" : "opacity-0"}`}>
+    <div ref={ref} className={`font-mono text-[11px] leading-6 ${color} ${visible ? "opacity-100" : "opacity-0"}`}>
       {typed}
       {visible && typed.length < text.length && (
-        <span className="inline-block w-1.5 h-3.5 bg-amber/70 ml-0.5 align-middle" style={{ animation: "blink 0.8s step-end infinite" }} />
+        <span className="inline-block w-1.5 h-3 bg-amber/70 ml-0.5 align-middle" style={{ animation: "blink 0.8s step-end infinite" }} />
       )}
     </div>
   );
@@ -44,14 +43,13 @@ function TerminalLine({ text, color, delay }: { text: string; color: string; del
 function PostG8Visual() {
   return (
     <div className="card-dark rounded-xl overflow-hidden">
-      {/* Window chrome */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5">
-        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-        <span className="mono-label ml-3 text-white/20">PostG8 — Content Engine</span>
+        <div className="w-2 h-2 rounded-full bg-white/8" />
+        <div className="w-2 h-2 rounded-full bg-white/8" />
+        <div className="w-2 h-2 rounded-full bg-white/8" />
+        <span className="mono-label ml-3 text-white/18">PostG8 — Product log</span>
       </div>
-      <div className="p-5 space-y-0.5 min-h-[140px]">
+      <div className="p-5 space-y-0.5 min-h-[130px]">
         {terminalLines.map((l, i) => (
           <div key={i}>
             <TerminalLine text={l.text} color={l.color} delay={l.delay} />
@@ -62,93 +60,79 @@ function PostG8Visual() {
   );
 }
 
-/* ─── Blue Lotus Node Graph Visual ─── */
+/* ─── Blue Lotus Validation Visual ─── */
 function BlueLotusVisual() {
-  const nodes = [
-    { x: 50, y: 50, label: "Manufacturer" },
-    { x: 50, y: 150, label: "Marketplace" },
-    { x: 50, y: 250, label: "Buyer" },
+  const steps = [
+    { label: "Market gap\nidentified", done: true },
+    { label: "CXO\nvalidation", done: true },
+    { label: "MVP\nscoped", done: true },
+    { label: "₹10L\nraised", done: true },
+    { label: "15+\nonboarded", done: true },
   ];
 
   return (
     <div className="card-dark rounded-xl p-6 overflow-hidden">
-      <svg viewBox="0 0 280 300" className="w-full h-full max-h-56" fill="none">
-        {/* Connection lines */}
-        <line x1="140" y1="55" x2="140" y2="145" stroke="rgba(34,71,214,0.3)" strokeWidth="1" />
-        <line x1="140" y1="165" x2="140" y2="245" stroke="rgba(34,71,214,0.3)" strokeWidth="1" />
+      <span className="mono-label mb-5 block">Product validation sequence</span>
+      <div className="relative">
+        {/* Connecting line */}
+        <div className="absolute top-[18px] left-[18px] right-[18px] h-px bg-white/6" />
+        <div className="absolute top-[18px] left-[18px] h-px bg-[#2247D6]/60" style={{ width: "100%", animation: "none" }} />
 
-        {/* Animated data packets */}
-        {[0, 1].map(i => (
-          <circle key={i} r="3" fill="#2247D6" opacity="0.7">
-            <animateMotion
-              dur={`${1.8 + i * 0.4}s`}
-              repeatCount="indefinite"
-              begin={`${i * 0.9}s`}
-              path={i === 0 ? "M140,55 L140,145" : "M140,165 L140,245"}
-            />
-          </circle>
-        ))}
-
-        {/* Nodes */}
-        {[
-          { cx: 140, cy: 50, label: "Manufacturer", sub: "Lists surplus stock" },
-          { cx: 140, cy: 150, label: "Marketplace", sub: "AI matching engine", highlight: true },
-          { cx: 140, cy: 250, label: "Buyer", sub: "Procures sub-MOQ" },
-        ].map((n, i) => (
-          <g key={i} style={{ animation: `nodePulse ${2 + i * 0.3}s ease-in-out infinite`, animationDelay: `${i * 0.4}s` }}>
-            <circle
-              cx={n.cx}
-              cy={n.cy}
-              r="18"
-              fill={n.highlight ? "rgba(34,71,214,0.15)" : "rgba(245,244,240,0.03)"}
-              stroke={n.highlight ? "#2247D6" : "rgba(245,244,240,0.12)"}
-              strokeWidth="1"
-            />
-            <text x={n.cx} y={n.cy - 2} textAnchor="middle" className="font-mono" fill={n.highlight ? "#2247D6" : "rgba(245,244,240,0.6)"} fontSize="7" fontWeight="600">
-              {n.label}
-            </text>
-            <text x={n.cx} y={n.cy + 8} textAnchor="middle" fill="rgba(245,244,240,0.25)" fontSize="5.5">
-              {n.sub}
-            </text>
-          </g>
-        ))}
-      </svg>
+        <div className="relative flex justify-between">
+          {steps.map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
+              className="flex flex-col items-center gap-2"
+            >
+              <div className="w-9 h-9 rounded-full flex items-center justify-center z-10"
+                style={{ background: "rgba(34,71,214,0.12)", border: "1px solid rgba(34,71,214,0.5)" }}>
+                <svg className="w-3.5 h-3.5" fill="none" stroke="#2247D6" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="mono-label text-center whitespace-pre-line leading-4">{s.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-/* ─── GCI Waveform Visual ─── */
+/* ─── GCI Product Map Visual ─── */
 function GCIVisual() {
-  const bars = Array.from({ length: 24 }, (_, i) => ({
-    height: 20 + Math.random() * 80,
-    delay: (i * 0.08) % 1.2,
-    duration: 0.8 + Math.random() * 0.6,
-  }));
+  const products = [
+    { name: "Academy", items: ["Masterclass booking", "Curriculum", "Student LMS", "Admin portal"] },
+    { name: "Marketplace", items: ["Artist onboarding", "Host onboarding", "Genre Wheel UI", "Discovery flow"] },
+  ];
 
   return (
     <div className="card-dark rounded-xl p-6 overflow-hidden">
-      <div className="flex items-end justify-center gap-1 h-28">
-        {bars.map((b, i) => (
-          <div
-            key={i}
-            className="flex-1 rounded-sm bg-gradient-to-t from-[#9B8EC4]/60 to-[#9B8EC4]/20"
-            style={{
-              height: `${b.height}%`,
-              animation: `waveBar ${b.duration}s ease-in-out infinite`,
-              animationDelay: `${b.delay}s`,
-            }}
-          />
+      <span className="mono-label mb-5 block">Products shipped</span>
+      <div className="grid grid-cols-2 gap-4">
+        {products.map((p) => (
+          <div key={p.name}>
+            <p className="text-text text-xs font-medium mb-3" style={{ color: "#9B8EC4" }}>{p.name}</p>
+            <div className="space-y-1.5">
+              {p.items.map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-white/20 shrink-0" />
+                  <span className="font-mono text-[10px] text-muted">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         ))}
-      </div>
-      <div className="flex items-center justify-between mt-4">
-        <span className="mono-label text-[#9B8EC4]/60">GIG CULTURE INDIA</span>
-        <span className="mono-label text-white/20">PAST WORK · 2025</span>
       </div>
     </div>
   );
 }
 
-/* ─── Stat counter ─── */
+/* ─── Stat block ─── */
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="card-dark p-5 rounded-xl">
@@ -169,12 +153,13 @@ interface ProjectProps {
   body: string[];
   links?: { label: string; href: string }[];
   stats?: { value: string; label: string }[];
+  highlights?: string[];
   visual: ReactNode;
   pastWork?: boolean;
   tech?: string[];
 }
 
-function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats, visual, pastWork, tech }: ProjectProps) {
+function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats, highlights, visual, pastWork, tech }: ProjectProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -227,6 +212,23 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
               {body.map((p, i) => <p key={i}>{p}</p>)}
             </motion.div>
 
+            {/* PM highlights */}
+            {highlights && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="space-y-2 mb-8"
+              >
+                {highlights.map((h, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="w-1 h-1 rounded-full bg-amber shrink-0 mt-2" />
+                    <p className="text-sm text-muted/80">{h}</p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+
             {stats && (
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
@@ -258,7 +260,7 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="flex flex-wrap gap-4"
+                className="flex flex-wrap gap-6"
               >
                 {links.map(l => (
                   <a
@@ -302,14 +304,20 @@ export default function ProjectsSection() {
         tag="PostG8 · postg8.com"
         tagColor="#6366F1"
         title="PostG8"
-        subtitle="AI-powered LinkedIn growth · Active · Solo-built"
+        subtitle="AI LinkedIn growth platform · Product lead + sole builder · Active"
         body={[
-          "An AI-powered LinkedIn content and growth platform, built solo from a blank page to a paying product. Every layer — content engine, publishing, outreach automation, Razorpay billing — designed, architected, and shipped by one person.",
-          "Quick Post, Content Strategy pipeline, Carousel Studio, Trending Topics, multi-account LinkedIn publishing, an Apify-backed outreach engine with ICP scoring, and a pipeline tracker from first connect to booked call.",
+          "Identified a real problem: professionals who know their expertise but can't consistently translate it into a LinkedIn presence. Went from problem to paid product — solo.",
+          "Designed and shipped four interconnected product areas: content generation (Quick Post, Strategy pipeline, Carousel Studio), native LinkedIn publishing, an Apify-powered outreach engine with AI ICP scoring, and Razorpay subscription billing. Every product decision — what to build, what to cut, what to charge — made independently.",
+        ]}
+        highlights={[
+          "Defined scope and prioritized across 4 product areas without a team or PM",
+          "Designed the full onboarding, free-to-paid conversion, and subscription flow",
+          "Made architecture tradeoffs solo: chose Supabase Edge Functions over a Node server to reduce ops overhead",
+          "Shipped 3 pricing tiers based on user value analysis, not guesswork",
         ]}
         stats={[
-          { value: "100%", label: "Code ownership" },
-          { value: "3 tiers", label: "Free · Pro · Growth" },
+          { value: "4", label: "Product areas shipped" },
+          { value: "3", label: "Pricing tiers, monetized" },
         ]}
         tech={["React", "Supabase", "Gemini 2.5 Flash", "Razorpay", "LinkedIn OAuth", "Unipile", "Apify"]}
         links={[
@@ -325,10 +333,16 @@ export default function ProjectsSection() {
         tag="Blue Lotus Value Tradelink · bluelotusvalue.com"
         tagColor="#2247D6"
         title="Blue Lotus"
-        subtitle="B2B surplus materials marketplace · Co-founded · Active"
+        subtitle="B2B marketplace for surplus raw materials · Co-founder & product director · Active"
         body={[
-          "A B2B marketplace where manufacturers list surplus raw material inventory and buyers procure it in flexible quantities — below typical minimum order size. Co-founded and directed, leading product design, tech strategy, and business development.",
-          "Raised ₹10L in early-stage funding pitched pre-revenue. Shipped the MVP within two months. Validated directly with manufacturing CXOs.",
+          "Identified a structural gap: manufacturers sitting on surplus raw material inventory with no efficient sell-off channel; buyers needing sub-MOQ quantities with no reliable source. Validated the problem directly with manufacturing CXOs before any product was scoped.",
+          "Led product design, tech strategy, and business development. Raised ₹10L in early-stage funding by leading every pitch with the user problem — not the product features.",
+        ]}
+        highlights={[
+          "Ran discovery interviews with manufacturing CXOs before committing to any solution",
+          "Defined MVP scope around the highest-pain, fastest-to-validate use case: sub-MOQ spot buying",
+          "Led cross-functional execution: product decisions + engineering oversight + investor conversations simultaneously",
+          "Shipped MVP in 2 months — 15+ manufacturers onboarded for the pilot",
         ]}
         stats={[
           { value: "₹10L", label: "Raised pre-revenue" },
@@ -345,10 +359,15 @@ export default function ProjectsSection() {
         tag="Gig Culture India"
         tagColor="#9B8EC4"
         title="Gig Culture India"
-        subtitle="Artist booking marketplace · Past work · 2025"
+        subtitle="Two-sided booking marketplace · Product builder · Past work · 2025"
         body={[
-          "Built the Academy and Marketplace for Gig Culture India while I was involved. The Academy covers DJ education: masterclass slot booking, a full curriculum, admin portal, and a student LMS with magic-link enrollment-gated auth.",
-          "The Marketplace is a two-sided artist/host booking platform with a Genre Wheel taste-mapping UI and an AI vibe-matching concept. The company continues independently — I'm no longer part of it.",
+          "Designed and shipped two distinct products while involved with GCI: an Academy for DJ education (masterclass booking, full curriculum, student LMS with enrollment-gated auth, admin portal for scheduling and cohort management) and a Marketplace for two-sided artist/host booking.",
+          "The Marketplace included the Genre Wheel — a taste-mapping UI to match artists to events based on vibe rather than just genre labels. The company continues independently; I'm no longer part of it.",
+        ]}
+        highlights={[
+          "Designed the student LMS product end-to-end: enrollment flow, content structure, progress tracking",
+          "Defined the Genre Wheel UX — a novel discovery mechanism replacing keyword search with taste mapping",
+          "Managed product scope across two separate products simultaneously with shared infrastructure",
         ]}
         tech={["React", "Tailwind", "Supabase", "Resend", "Vercel"]}
         links={[

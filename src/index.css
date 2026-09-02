@@ -56,13 +56,14 @@
   }
 
   .card-dark {
-    background: #111113;
-    border: 1px solid rgba(245, 244, 240, 0.06);
-    @apply rounded-xl transition-all duration-300;
+    background: #0f0f11;
+    border: 1px solid rgba(245, 244, 240, 0.05);
+    @apply rounded-xl transition-all duration-500;
   }
 
   .card-dark:hover {
-    border-color: rgba(245, 244, 240, 0.11);
+    border-color: rgba(245, 244, 240, 0.09);
+    background: #111113;
   }
 
   .divider {
