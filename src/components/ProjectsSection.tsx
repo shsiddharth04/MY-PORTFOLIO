@@ -5,7 +5,7 @@ import { motion, useInView } from "motion/react";
 const terminalLines = [
   { delay: 0,   text: "> Problem: professionals cannot turn expertise into consistent content", color: "text-white/40" },
   { delay: 1.0, text: "> Solution: content engine + publishing + outreach in one product", color: "text-amber" },
-  { delay: 2.2, text: "> Shipped: Free / Pro 999/mo / Growth tier", color: "text-emerald-400/80" },
+  { delay: 2.2, text: "> Shipped: content engine, publishing, outreach, billing", color: "text-emerald-400/80" },
   { delay: 3.2, text: "> Result: pre-launch. Built solo. Done.", color: "text-emerald-400/90" },
 ];
 
@@ -315,11 +315,11 @@ export default function ProjectsSection() {
           "Defined scope and prioritized across 4 product areas with no team",
           "Designed the full onboarding, free-to-paid conversion, and subscription flow",
           "Made architecture tradeoffs solo: chose Supabase Edge Functions over a Node server to cut ops overhead",
-          "Shipped 3 pricing tiers based on user value analysis, not guesswork",
+          "Designed the full onboarding and free-to-paid conversion flow end-to-end",
         ]}
         stats={[
           { value: "4", label: "Product areas shipped" },
-          { value: "3", label: "Pricing tiers, monetized" },
+          { value: "3", label: "Subscription tiers designed" },
         ]}
         tech={["React", "Supabase", "Gemini 2.5 Flash", "Razorpay", "LinkedIn OAuth", "Unipile", "Apify"]}
         links={[
