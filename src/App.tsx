@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import GrainOverlay from "./components/GrainOverlay";
-import CustomCursor from "./components/CustomCursor";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
 import OtherWork from "./components/OtherWork";
 import ContactSection from "./components/ContactSection";
@@ -25,10 +23,9 @@ export default function App() {
 
   return (
     <main className="relative bg-bg min-h-screen overflow-x-hidden">
-      <CustomCursor />
       <GrainOverlay />
 
-      {/* Subtle dot grid — fades from top-right, invisible on scroll */}
+      {/* Subtle dot grid, top-right only */}
       <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{
@@ -43,7 +40,6 @@ export default function App() {
 
       <div className="relative z-10">
         <Hero />
-        <AboutSection />
         <ProjectsSection />
         <OtherWork />
         <ContactSection />

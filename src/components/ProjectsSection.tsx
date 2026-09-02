@@ -272,10 +272,10 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-2 mono-label hover:text-text transition-colors duration-300"
+                    className="group inline-flex items-center gap-1.5 text-sm font-medium text-text border-b border-text/25 hover:border-text pb-0.5 transition-colors duration-200"
                   >
                     {l.label}
-                    <svg className="w-2.5 h-2.5 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>

@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import Magnetic from "./Magnetic";
 
 const contacts = [
   { label: "Email", value: "sh.siddharthsharma04@gmail.com", href: "mailto:sh.siddharthsharma04@gmail.com" },
@@ -62,17 +61,15 @@ export default function ContactSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.45 }}
         >
-          <Magnetic strength={0.35}>
-            <a
-              href="mailto:sh.siddharthsharma04@gmail.com"
-              className="group inline-flex items-center gap-3 bg-text/5 hover:bg-text/8 border border-text/10 hover:border-text/20 text-text px-8 py-4 rounded-full transition-all duration-400"
-            >
-              <span className="mono-label !text-text">Send a message</span>
-              <svg className="w-3 h-3 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </Magnetic>
+          <a
+            href="mailto:sh.siddharthsharma04@gmail.com"
+            className="group inline-flex items-center gap-3 bg-text/5 hover:bg-text/8 border border-text/10 hover:border-text/20 text-text px-8 py-4 rounded-full transition-all duration-400"
+          >
+            <span className="mono-label !text-text">Send a message</span>
+            <svg className="w-3 h-3 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
         </motion.div>
       </div>
 
