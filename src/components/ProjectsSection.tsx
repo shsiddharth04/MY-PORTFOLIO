@@ -6,7 +6,7 @@ const terminalLines = [
   { delay: 0,   text: "> Problem: professionals cannot turn expertise into consistent content", color: "text-white/40" },
   { delay: 1.0, text: "> Solution: content engine + publishing + outreach in one product", color: "text-amber" },
   { delay: 2.2, text: "> Shipped: Free / Pro 999/mo / Growth tier", color: "text-emerald-400/80" },
-  { delay: 3.2, text: "> Result: paying users. Built solo. Done.", color: "text-emerald-400/90" },
+  { delay: 3.2, text: "> Result: pre-launch. Built solo. Done.", color: "text-emerald-400/90" },
 ];
 
 function TerminalLine({ text, color, delay }: { text: string; color: string; delay: number }) {
