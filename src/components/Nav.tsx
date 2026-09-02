@@ -26,16 +26,15 @@ export default function Nav() {
         visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
       }`}
     >
-      <a href="#section-hero" className="mono-label text-text/40 hover:text-amber transition-colors duration-300">
+      <a href="#section-hero" className="mono-label hover:text-amber transition-colors duration-300">
         SS
       </a>
-
       <div className="flex items-center gap-8">
         {links.map(l => (
           <a
             key={l.label}
             href={l.href}
-            className="mono-label text-muted hover:text-text transition-colors duration-300"
+            className="mono-label hover:text-text transition-colors duration-300"
           >
             {l.label}
           </a>

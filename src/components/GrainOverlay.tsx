@@ -15,15 +15,13 @@ export default function GrainOverlay() {
     const render = () => {
       const imageData = ctx.createImageData(width, height);
       const data = imageData.data;
-
       for (let i = 0; i < data.length; i += 4) {
         const val = Math.random() * 255;
         data[i] = val;
         data[i + 1] = val;
         data[i + 2] = val;
-        data[i + 3] = 15; // Very subtle
+        data[i + 3] = 10; // Very faint on light bg
       }
-
       ctx.putImageData(imageData, 0, 0);
       requestAnimationFrame(render);
     };
@@ -39,9 +37,9 @@ export default function GrainOverlay() {
   }, []);
 
   return (
-    <canvas 
-      ref={canvasRef} 
-      className="fixed inset-0 pointer-events-none z-[100] opacity-[0.4] mix-blend-overlay" 
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-[100] opacity-[0.35] mix-blend-multiply"
     />
   );
 }

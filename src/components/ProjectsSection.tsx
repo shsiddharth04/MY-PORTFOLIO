@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState, type ReactNode } from "react";
 import { motion, useInView } from "motion/react";
 
-/* ─── PostG8 Terminal Visual ─── */
+/* ─── PostG8 Terminal (stays dark for contrast) ─── */
 const terminalLines = [
-  { delay: 0,   text: "> Problem: professionals can't turn expertise into consistent content", color: "text-muted" },
-  { delay: 1.0, text: "> Solution: AI engine + publishing + outreach in one product", color: "text-amber/70" },
-  { delay: 2.0, text: "> Shipped: Free · Pro ₹999/mo · Growth tier", color: "text-emerald-400/70" },
-  { delay: 3.0, text: "> Outcome: paying users. Solo-built. ✓", color: "text-emerald-400/80" },
+  { delay: 0,   text: "> Problem: professionals cannot turn expertise into consistent content", color: "text-white/40" },
+  { delay: 1.0, text: "> Solution: content engine + publishing + outreach in one product", color: "text-amber" },
+  { delay: 2.2, text: "> Shipped: Free / Pro 999/mo / Growth tier", color: "text-emerald-400/80" },
+  { delay: 3.2, text: "> Result: paying users. Built solo. Done.", color: "text-emerald-400/90" },
 ];
 
 function TerminalLine({ text, color, delay }: { text: string; color: string; delay: number }) {
@@ -34,7 +34,10 @@ function TerminalLine({ text, color, delay }: { text: string; color: string; del
     <div ref={ref} className={`font-mono text-[11px] leading-6 ${color} ${visible ? "opacity-100" : "opacity-0"}`}>
       {typed}
       {visible && typed.length < text.length && (
-        <span className="inline-block w-1.5 h-3 bg-amber/70 ml-0.5 align-middle" style={{ animation: "blink 0.8s step-end infinite" }} />
+        <span
+          className="inline-block w-1.5 h-3 bg-amber ml-0.5 align-middle"
+          style={{ animation: "blink 0.8s step-end infinite" }}
+        />
       )}
     </div>
   );
@@ -42,12 +45,14 @@ function TerminalLine({ text, color, delay }: { text: string; color: string; del
 
 function PostG8Visual() {
   return (
-    <div className="card-dark rounded-xl overflow-hidden">
+    <div className="card-terminal overflow-hidden">
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5">
         <div className="w-2 h-2 rounded-full bg-white/8" />
         <div className="w-2 h-2 rounded-full bg-white/8" />
         <div className="w-2 h-2 rounded-full bg-white/8" />
-        <span className="mono-label ml-3 text-white/18">PostG8 — Product log</span>
+        <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/20 ml-3">
+          PostG8 — Product log
+        </span>
       </div>
       <div className="p-5 space-y-0.5 min-h-[130px]">
         {terminalLines.map((l, i) => (
@@ -63,21 +68,19 @@ function PostG8Visual() {
 /* ─── Blue Lotus Validation Visual ─── */
 function BlueLotusVisual() {
   const steps = [
-    { label: "Market gap\nidentified", done: true },
-    { label: "CXO\nvalidation", done: true },
-    { label: "MVP\nscoped", done: true },
-    { label: "₹10L\nraised", done: true },
-    { label: "15+\nonboarded", done: true },
+    { label: "Market gap\nfound", note: "Manufacturers hold surplus" },
+    { label: "CXO\nvalidation", note: "Before any code" },
+    { label: "MVP\nscoped", note: "Sub-MOQ marketplace" },
+    { label: "10L\nraised", note: "Pre-revenue pitch" },
+    { label: "15+\nonboarded", note: "Manufacturer pilot" },
   ];
 
   return (
-    <div className="card-dark rounded-xl p-6 overflow-hidden">
-      <span className="mono-label mb-5 block">Product validation sequence</span>
+    <div className="card-light p-6 overflow-hidden">
+      <span className="mono-label mb-6 block">Validation sequence before building</span>
       <div className="relative">
-        {/* Connecting line */}
-        <div className="absolute top-[18px] left-[18px] right-[18px] h-px bg-white/6" />
-        <div className="absolute top-[18px] left-[18px] h-px bg-[#2247D6]/60" style={{ width: "100%", animation: "none" }} />
-
+        <div className="absolute top-[18px] left-4 right-4 h-px bg-text/6" />
+        <div className="absolute top-[18px] left-4 h-px bg-[#2247D6]/40" style={{ right: "16px" }} />
         <div className="relative flex justify-between">
           {steps.map((s, i) => (
             <motion.div
@@ -85,16 +88,20 @@ function BlueLotusVisual() {
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
+              transition={{ delay: 0.15 + i * 0.12, duration: 0.4 }}
               className="flex flex-col items-center gap-2"
             >
-              <div className="w-9 h-9 rounded-full flex items-center justify-center z-10"
-                style={{ background: "rgba(34,71,214,0.12)", border: "1px solid rgba(34,71,214,0.5)" }}>
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center z-10 bg-surface"
+                style={{ border: "1px solid rgba(34,71,214,0.35)" }}
+              >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="#2247D6" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <p className="mono-label text-center whitespace-pre-line leading-4">{s.label}</p>
+              <p className="font-mono text-[9px] tracking-wide text-muted text-center whitespace-pre-line leading-4">
+                {s.label}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -103,24 +110,24 @@ function BlueLotusVisual() {
   );
 }
 
-/* ─── GCI Product Map Visual ─── */
+/* ─── GCI Product Map ─── */
 function GCIVisual() {
   const products = [
-    { name: "Academy", items: ["Masterclass booking", "Curriculum", "Student LMS", "Admin portal"] },
-    { name: "Marketplace", items: ["Artist onboarding", "Host onboarding", "Genre Wheel UI", "Discovery flow"] },
+    { name: "Academy", color: "#9B8EC4", items: ["Masterclass booking", "Curriculum management", "Student LMS", "Admin portal"] },
+    { name: "Marketplace", color: "#9B8EC4", items: ["Artist onboarding", "Host onboarding", "Genre Wheel UI", "Discovery flow"] },
   ];
 
   return (
-    <div className="card-dark rounded-xl p-6 overflow-hidden">
+    <div className="card-light p-6 overflow-hidden">
       <span className="mono-label mb-5 block">Products shipped</span>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6">
         {products.map((p) => (
           <div key={p.name}>
-            <p className="text-text text-xs font-medium mb-3" style={{ color: "#9B8EC4" }}>{p.name}</p>
-            <div className="space-y-1.5">
+            <p className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3" style={{ color: p.color }}>{p.name}</p>
+            <div className="space-y-2">
               {p.items.map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-white/20 shrink-0" />
+                  <div className="w-1 h-1 rounded-full bg-text/20 shrink-0" />
                   <span className="font-mono text-[10px] text-muted">{item}</span>
                 </div>
               ))}
@@ -135,7 +142,7 @@ function GCIVisual() {
 /* ─── Stat block ─── */
 function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="card-dark p-5 rounded-xl">
+    <div className="card-light p-5 rounded-xl">
       <p className="font-display text-3xl font-bold text-text mb-1">{value}</p>
       <p className="mono-label">{label}</p>
     </div>
@@ -164,32 +171,30 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id={id} className="section-wrap border-t border-white/5">
+    <section id={id} className="section-wrap">
       <div className="w-full z-10" ref={ref}>
-        {/* Top meta */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-8"
         >
           <span className="mono-label">{index}</span>
-          <span className="w-6 h-px bg-white/10" />
+          <span className="w-6 h-px bg-text/12" />
           <span className="mono-label" style={{ color: tagColor }}>{tag}</span>
           {pastWork && (
-            <span className="ml-auto font-mono text-[9px] tracking-[0.2em] uppercase text-white/20 border border-white/10 px-2 py-0.5 rounded-full">
+            <span className="ml-auto font-mono text-[9px] tracking-[0.2em] uppercase text-muted border border-text/10 px-2 py-0.5 rounded-full">
               Past work
             </span>
           )}
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Content */}
           <div>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl md:text-6xl mb-3 leading-[1.05]"
             >
               {title}
@@ -197,28 +202,27 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
             <motion.p
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.18 }}
               className="mono-label mb-8"
             >
               {subtitle}
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.25 }}
+              transition={{ duration: 0.7, delay: 0.22 }}
               className="space-y-4 text-muted text-base leading-relaxed mb-8"
             >
               {body.map((p, i) => <p key={i}>{p}</p>)}
             </motion.div>
 
-            {/* PM highlights */}
             {highlights && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="space-y-2 mb-8"
+                transition={{ duration: 0.6, delay: 0.28 }}
+                className="space-y-2.5 mb-8"
               >
                 {highlights.map((h, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -231,9 +235,9 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
 
             {stats && (
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.35 }}
+                transition={{ duration: 0.6, delay: 0.33 }}
                 className="grid grid-cols-2 gap-3 mb-8"
               >
                 {stats.map((s, i) => <div key={i}><Stat value={s.value} label={s.label} /></div>)}
@@ -244,11 +248,11 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.45 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 className="flex flex-wrap gap-2 mb-8"
               >
                 {tech.map(t => (
-                  <span key={t} className="font-mono text-[10px] tracking-wide text-muted border border-white/8 px-2.5 py-1 rounded-full">
+                  <span key={t} className="font-mono text-[10px] tracking-wide text-muted border border-text/8 px-2.5 py-1 rounded-full">
                     {t}
                   </span>
                 ))}
@@ -259,7 +263,7 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
                 className="flex flex-wrap gap-6"
               >
                 {links.map(l => (
@@ -280,11 +284,10 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
             )}
           </div>
 
-          {/* Visual */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 16 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
             {visual}
           </motion.div>
@@ -294,7 +297,6 @@ function Project({ id, index, tag, tagColor, title, subtitle, body, links, stats
   );
 }
 
-/* ─── Exported section ─── */
 export default function ProjectsSection() {
   return (
     <>
@@ -304,15 +306,15 @@ export default function ProjectsSection() {
         tag="PostG8 · postg8.com"
         tagColor="#6366F1"
         title="PostG8"
-        subtitle="AI LinkedIn growth platform · Product lead + sole builder · Active"
+        subtitle="AI LinkedIn growth platform · Product lead and sole builder · Active"
         body={[
-          "Identified a real problem: professionals who know their expertise but can't consistently translate it into a LinkedIn presence. Went from problem to paid product — solo.",
-          "Designed and shipped four interconnected product areas: content generation (Quick Post, Strategy pipeline, Carousel Studio), native LinkedIn publishing, an Apify-powered outreach engine with AI ICP scoring, and Razorpay subscription billing. Every product decision — what to build, what to cut, what to charge — made independently.",
+          "Identified a real problem: professionals who know their expertise but cannot consistently put it into a LinkedIn presence. Went from problem to paid product solo.",
+          "Designed and shipped four interconnected product areas: content generation, native LinkedIn publishing, an outreach engine with ICP scoring, and Razorpay subscription billing. Every product decision made independently.",
         ]}
         highlights={[
-          "Defined scope and prioritized across 4 product areas without a team or PM",
+          "Defined scope and prioritized across 4 product areas with no team",
           "Designed the full onboarding, free-to-paid conversion, and subscription flow",
-          "Made architecture tradeoffs solo: chose Supabase Edge Functions over a Node server to reduce ops overhead",
+          "Made architecture tradeoffs solo: chose Supabase Edge Functions over a Node server to cut ops overhead",
           "Shipped 3 pricing tiers based on user value analysis, not guesswork",
         ]}
         stats={[
@@ -333,19 +335,19 @@ export default function ProjectsSection() {
         tag="Blue Lotus Value Tradelink · bluelotusvalue.com"
         tagColor="#2247D6"
         title="Blue Lotus"
-        subtitle="B2B marketplace for surplus raw materials · Co-founder & product director · Active"
+        subtitle="B2B marketplace for surplus raw materials · Co-founder and product director · Active"
         body={[
           "Identified a structural gap: manufacturers sitting on surplus raw material inventory with no efficient sell-off channel; buyers needing sub-MOQ quantities with no reliable source. Validated the problem directly with manufacturing CXOs before any product was scoped.",
-          "Led product design, tech strategy, and business development. Raised ₹10L in early-stage funding by leading every pitch with the user problem — not the product features.",
+          "Led product design, tech strategy, and business development. Raised 10 lakh in early-stage funding by leading every pitch with the user problem, not the product features.",
         ]}
         highlights={[
           "Ran discovery interviews with manufacturing CXOs before committing to any solution",
           "Defined MVP scope around the highest-pain, fastest-to-validate use case: sub-MOQ spot buying",
-          "Led cross-functional execution: product decisions + engineering oversight + investor conversations simultaneously",
-          "Shipped MVP in 2 months — 15+ manufacturers onboarded for the pilot",
+          "Led cross-functional execution: product decisions, engineering oversight, investor conversations simultaneously",
+          "Shipped MVP in 2 months with 15+ manufacturers onboarded for the pilot",
         ]}
         stats={[
-          { value: "₹10L", label: "Raised pre-revenue" },
+          { value: "10L", label: "Raised pre-revenue" },
           { value: "15+", label: "Manufacturers onboarded" },
         ]}
         tech={["React", "Tailwind", "Supabase", "Vercel"]}
@@ -361,12 +363,12 @@ export default function ProjectsSection() {
         title="Gig Culture India"
         subtitle="Two-sided booking marketplace · Product builder · Past work · 2025"
         body={[
-          "Designed and shipped two distinct products while involved with GCI: an Academy for DJ education (masterclass booking, full curriculum, student LMS with enrollment-gated auth, admin portal for scheduling and cohort management) and a Marketplace for two-sided artist/host booking.",
-          "The Marketplace included the Genre Wheel — a taste-mapping UI to match artists to events based on vibe rather than just genre labels. The company continues independently; I'm no longer part of it.",
+          "Designed and shipped two distinct products while involved with GCI: an Academy for DJ education with masterclass booking, a full curriculum, student LMS with enrollment-gated auth, and an admin portal for scheduling and cohort management.",
+          "The Marketplace included the Genre Wheel, a taste-mapping UI to match artists to events based on vibe rather than genre labels. The company continues independently. I am no longer part of it.",
         ]}
         highlights={[
           "Designed the student LMS product end-to-end: enrollment flow, content structure, progress tracking",
-          "Defined the Genre Wheel UX — a novel discovery mechanism replacing keyword search with taste mapping",
+          "Defined the Genre Wheel UX, a novel discovery mechanism replacing keyword search with taste mapping",
           "Managed product scope across two separate products simultaneously with shared infrastructure",
         ]}
         tech={["React", "Tailwind", "Supabase", "Resend", "Vercel"]}
